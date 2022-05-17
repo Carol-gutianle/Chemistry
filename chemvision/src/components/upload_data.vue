@@ -8,7 +8,7 @@
             <el-upload
               class="upload-demo"
               ref="upload"
-              action="/api/cdata_post"
+              action="/cdata_post"
               :http-request="httprequest"
               :on-preview="handlePreview"
               :on-remove="handleRemove"
@@ -59,12 +59,10 @@ export default {
     submituploadform() {
       this.$refs.upload.submit()
 
-      request.post("/api/cdata_post", this.fd).then(res=>{
-        if(1) {
-          this.$message({
-            type: "success",
-            message: "上传成功！"
-          })
+      request.post("cdata_post/", this.fd).then(res=>{
+        if(res.data.code===200) {
+
+          this.gocaozuo()
         }
         else {
           this.$message({
