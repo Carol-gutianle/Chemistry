@@ -19,6 +19,7 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('return_datas/', views.return_datas),
+    path('cdata_post/', views.cdata_post),
     # url(r'^webtest/', views.PythonWebDemo.webtest),#添加api路由
     # path(r'',TemplateView.as_view(template_name="index.html"))
 ]
