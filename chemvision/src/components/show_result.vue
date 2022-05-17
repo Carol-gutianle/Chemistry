@@ -51,21 +51,8 @@ import request from "../util/request";
 export default {
   data() {
     return {
-      list: [
-        {"title":'图1',"url":require("../assets/0.png")},
-        {"title":'图2',"url":require("../assets/1.png")},
-        {"title":'图3',"url":require("../assets/2.png")},
-        {"title":'图4',"url":require("../assets/3.png")},
-        {"title":'图5',"url":require("../assets/4.png")},
-        {"title":'图6',"url":require("../assets/5.png")},
-        {"title":'图7',"url":require("../assets/6.png")},
-      ],
-      tableData: [
-        {'kValue':1,'eValue':2},
-        {'kValue':1,'eValue':2},
-        {'kValue':1,'eValue':2},
-        {'kValue':1,'eValue':2},
-      ]
+      list: [],
+      tableData: []
     }
   },
   methods: {
@@ -79,7 +66,12 @@ export default {
 
     run() {
       request.post("api/return_datas/", this.fd).then(res=>{
-
+           for(var i=0;i<7;i++)
+           {
+                res.data.picture[i]["url"] = require(res.data.picture[i]["url"])
+           }
+           this.list = res.data.picture;
+           this.tableData = res.data.KE;
       })
     }
 
