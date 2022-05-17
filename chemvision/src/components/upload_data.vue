@@ -59,9 +59,8 @@ export default {
     submituploadform() {
       this.$refs.upload.submit()
 
-      request.post("cdata_post/", this.fd).then(res=>{
+      request.post("api/cdata_post/", this.fd).then(res=>{
         if(res.data.code===200) {
-
           this.gocaozuo()
         }
         else {

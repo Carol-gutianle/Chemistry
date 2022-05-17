@@ -5,6 +5,10 @@
     <div style="text-align: center;width: 100%; padding-left: 100px;margin: auto">
 
       <el-card style="width: 60%; margin: 10px">
+      <el-button type="primary" @click="run()">开始运行</el-button>
+      </el-card>
+
+      <el-card style="width: 60%; margin: 10px">
         <el-carousel
           width="100%"
           height="600px"
@@ -72,6 +76,12 @@ export default {
       this.$refs.carousel.setActiveItem(index) //调动setActiveItem方法，动态切换图片
       this.articleTitle = this.list[index]["title"];
     },
+
+    run() {
+      request.post("api/return_datas/", this.fd).then(res=>{
+
+      })
+    }
 
   }
 
