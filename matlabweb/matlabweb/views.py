@@ -69,57 +69,43 @@ def return_datas(request):
     cdata1 = matlab.double(cdata1)
     k0_e0=matlab.double(k0_e0)
     T=matlab.double(T)
-    # res_t, res_c,res_k,res_e = eng.mainPXKinetics(k0_e0, T, cdata1, nargout=4)
-    # # t为7*13*1
-    # res_t = np.array(res_t).reshape(7, 13, 1)
-    # res_c = np.array(res_c).reshape(7, 13, 7)
-    # res_k = np.array(res_k).reshape(1, 7).tolist()
-    # res_e = np.array(res_e).reshape(1, 7).tolist()
-    # res_k = res_k[0]
-    # res_e = res_e[0]
-    # res_t = res_t[0]
+    res_t, res_c,res_k,res_e = eng.mainPXKinetics(k0_e0, T, cdata1, nargout=4)
+    # t为7*13*1
+    res_t = np.array(res_t).reshape(7, 13, 1)
+    res_c = np.array(res_c).reshape(7, 13, 7)
+    res_k = np.array(res_k).reshape(1, 7).tolist()
+    res_e = np.array(res_e).reshape(1, 7).tolist()
+    res_k = res_k[0]
+    res_e = res_e[0]
+    res_t = res_t[0]
 
     # '''画图'''
     cwd = os.getcwd()
-    # for i in range(0, 7):
-    #     expdata = cdata[i]
-    #     c = res_c[i]
-    #     time = expdata[:, 0]  # 实验值--时间
-    #     cexp = expdata[:, 1:8]  # 实验值--各化学物的浓度，大小：(13*7)
-    #     fig = plt.figure(i)
-    #     plt.plot(time, cexp[:, 1], 'ko', res_t, c[:, 1], 'k-', time, cexp[:, 2], 'r+', res_t, c[:, 2], 'r-', time, cexp[:, 3],
-    #              'gs', res_t, c[:, 3], 'g-', time, cexp[:, 4], 'bs', res_t, c[:, 4], 'b-', time, cexp[:, 5], 'bs', res_t, c[:, 5],
-    #              'b-')
-    #     plt.xlabel('time(min)')
-    #     plt.ylabel('concentration(mol/l)')
-    #     plt.savefig(str(i)+'.png')
-    # # draw_final()
-
     for i in range(0, 7):
         expdata = cdata[i]
-        # c = res_c[i]
+        c = res_c[i]
         time = expdata[:, 0]  # 实验值--时间
         cexp = expdata[:, 1:8]  # 实验值--各化学物的浓度，大小：(13*7)
         fig = plt.figure(i)
-        plt.plot(time, cexp[:, 1], 'ko', time, cexp[:, 1], 'k-', time, cexp[:, 2], 'r+', time, cexp[:, 2], 'r-', time,
-                 cexp[:, 3],
-                 'gs', time, cexp[:, 3], 'g-', time, cexp[:, 4], 'bs', time, cexp[:, 4], 'b-', time, cexp[:, 5], 'bs',
-                 time, cexp[:, 5],
+        plt.plot(time, cexp[:, 1], 'ko', res_t, c[:, 1], 'k-', time, cexp[:, 2], 'r+', res_t, c[:, 2], 'r-', time, cexp[:, 3],
+                 'gs', res_t, c[:, 3], 'g-', time, cexp[:, 4], 'bs', res_t, c[:, 4], 'b-', time, cexp[:, 5], 'bs', res_t, c[:, 5],
                  'b-')
         plt.xlabel('time(min)')
         plt.ylabel('concentration(mol/l)')
-        plt.savefig(str(i) + '.png')
+        plt.savefig('static/'+str(i) + '.png')
+    # draw_final()
 
     for i in range(0, 7):
         data4 = {}
-        data4["title"]='图'+str(i+1)
-        data4["url"]=str(cwd)+'\\'+str(i)+'.png'
+        # data4["title"]='图'+str(i+1)
+        data4["url"]=str(i)+'.png'
         data1.append(data4)
     data["picture"]=data1
 
-    res_k=[1,2,3,4,5,6,7]
-    res_e = [1, 2, 3, 4, 5, 6, 7]
-
+    # res_k=[1,2,3,4,5,6,7]
+    # res_e = [1, 2, 3, 4, 5, 6, 7]
+    print(res_e)
+    print(res_k)
     inti=1
     for i,j in zip(res_k,res_e):
         data3={}
@@ -130,4 +116,3 @@ def return_datas(request):
     data['KE']=data2
     sample = json.dumps(data)  # json.dumps()把一个Python对象编，码转换成Json字符串。
     return HttpResponse(sample, content_type="application/json")  # 返回给前端
-

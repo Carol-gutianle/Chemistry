@@ -9,7 +9,7 @@ axios.interceptors.request.use((config)=>{
 
 const request = axios.create({ //创建一个request对象
 
-  timeout: 5000
+  timeout: 1200000
 })
 
 // 请求白名单，如果请求在白名单里面，将不会被拦截校验权限

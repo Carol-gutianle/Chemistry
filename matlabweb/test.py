@@ -98,23 +98,25 @@ cdata= [[[0, 9.413, 0, 0, 0, 0, 0, 0.000002],
             [120.0000,8.4507,0.1395,0.1543,0.3179,0.0230,0.0032,0.000004]]]
 cdata=np.array(cdata).reshape(7,13,8)
 if __name__ == '__main__':
-    for i in range(0, 7):
-        expdata = cdata[i]
-        # c = res_c[i]
-        time = expdata[:, 0]  # 实验值--时间
-        cexp = expdata[:, 1:8]  # 实验值--各化学物的浓度，大小：(13*7)
-        fig = plt.figure(i)
-        plt.plot(time, cexp[:, 1], 'ko', time, cexp[:, 1], 'k-', time, cexp[:, 2], 'r+', time, cexp[:, 2], 'r-', time,
-                 cexp[:, 3],
-                 'gs', time, cexp[:, 3], 'g-', time, cexp[:, 4], 'bs', time, cexp[:, 4], 'b-', time, cexp[:, 5], 'bs',
-                 time, cexp[:, 5],
-                 'b-')
-        plt.xlabel('time(min)')
-        plt.ylabel('concentration(mol/l)')
-        plt.savefig(str(i) + '.png')
-    # plt.show()
-    for i in range(0, 7):
-        cwd = os.getcwd()
-        path=str(cwd)+'\\'+str(i)+'.png'
-        image=Image.open(path)
-        image.save("img/tt"+str(i)+".png")
+    # for i in range(0, 7):
+    #     expdata = cdata[i]
+    #     # c = res_c[i]
+    #     time = expdata[:, 0]  # 实验值--时间
+    #     cexp = expdata[:, 1:8]  # 实验值--各化学物的浓度，大小：(13*7)
+    #     fig = plt.figure(i)
+    #     plt.plot(time, cexp[:, 1], 'ko', time, cexp[:, 1], 'k-', time, cexp[:, 2], 'r+', time, cexp[:, 2], 'r-', time,
+    #              cexp[:, 3],
+    #              'gs', time, cexp[:, 3], 'g-', time, cexp[:, 4], 'bs', time, cexp[:, 4], 'b-', time, cexp[:, 5], 'bs',
+    #              time, cexp[:, 5],
+    #              'b-')
+    #     plt.xlabel('time(min)')
+    #     plt.ylabel('concentration(mol/l)')
+    #     plt.savefig(str(i) + '.png')
+    # # plt.show()
+    # for i in range(0, 7):
+    #     cwd = os.getcwd()
+    #     path=str(cwd)+'\\'+str(i)+'.png'
+    #     image=Image.open(path)
+    #     image.save("img/tt"+str(i)+".png")
+    path=str( os.path.dirname(__file__))
+    print(path)

@@ -51,7 +51,7 @@ import request from "../util/request";
 export default {
   data() {
     return {
-      list: [],
+      list: [{"title":'1',"url":'http://127.0.0.1:8000/media/0.png'},],
       tableData: []
     }
   },
@@ -65,12 +65,16 @@ export default {
     },
 
     run() {
+      this.list= [];
+      this.tableData= [];
       request.post("api/return_datas/", this.fd).then(res=>{
+           this.list = res.data.picture;
            for(var i=0;i<7;i++)
            {
-                res.data.picture[i]["url"] = require(res.data.picture[i]["url"])
+                this.list[i]["url"] = "http://127.0.0.1:8000/media/"+this.list[i]["url"];
+             // this.list[i]["url"] = "http://127.0.0.1:8000/media/0.png";
            }
-           this.list = res.data.picture;
+
            this.tableData = res.data.KE;
       })
     }
@@ -94,3 +98,5 @@ export default {
 }
 </style>
 
+<!--taskkill -PID 14908 -F-->
+<!--netstat -ano | findstr 8080-->
