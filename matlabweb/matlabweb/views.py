@@ -8,6 +8,9 @@ import numpy as np
 import matlab.engine
 import matplotlib.pyplot as plt
 from django.views.decorators.csrf import csrf_exempt
+from pylab import *
+mpl.rcParams['font.sans-serif'] = ['SimHei']
+titles=["图一反应条件：448K 1.0MPa","图二反应条件：453K 1.0MPa","图三反应条件：458K 1.0MPa","图四反应条件：463K 1.0MPa","图五反应条件：443K 1.0MPa 酯浓度0.002mol/m3","图六反应条件：443K 1.0MPa 酯浓度0.001mol/m3","图七反应条件：443K 1.0MPa 酯浓度0.004mol/m3"]
 
 cdata= []
 # k0 e0  1*16
@@ -87,11 +90,21 @@ def return_datas(request):
         time = expdata[:, 0]  # 实验值--时间
         cexp = expdata[:, 1:8]  # 实验值--各化学物的浓度，大小：(13*7)
         fig = plt.figure(i)
-        plt.plot(time, cexp[:, 1], 'ko', res_t, c[:, 1], 'k-', time, cexp[:, 2], 'r+', res_t, c[:, 2], 'r-', time, cexp[:, 3],
-                 'gs', res_t, c[:, 3], 'g-', time, cexp[:, 4], 'bs', res_t, c[:, 4], 'b-', time, cexp[:, 5], 'bs', res_t, c[:, 5],
-                 'b-')
+        plt.plot(time, cexp[:, 1], 'ko', label='苯甲醇(ArCH2OH)实验点')
+        plt.plot(res_t, c[:, 1], 'k-', label='苯甲醇(ArCH2OH)')
+        plt.plot(time, cexp[:, 2], 'r+', label='苯甲醛(ArCHO)实验点')
+        plt.plot(res_t, c[:, 2], 'r-', label='苯甲醛(ArCHO)')
+        plt.plot(time, cexp[:, 3], 'gs', label='苯甲酸(ArCOOH)实验点')
+        plt.plot(res_t, c[:, 3], 'g-', label='苯甲酸(ArCOOH)')
+        plt.plot(time, cexp[:, 4], 'bD', label='过氧化物(ArCH2OOH)实验点')
+        plt.plot(res_t, c[:, 4], 'b-', label='过氧化物(ArCH2OOH)')
+        plt.plot(time, cexp[:, 5], 'm^', label='苯甲酸苄酯(ArCOOCH2Ar)实验点')
+        plt.plot(res_t, c[:, 5], 'm-', label='苯甲酸苄酯(ArCOOCH2Ar)')
+
         plt.xlabel('time(min)')
         plt.ylabel('concentration(mol/l)')
+        plt.title(titles[i], fontsize=15)
+        plt.legend(['苯甲醇(ArCH2OH)实验点','苯甲醇(ArCH2OH)','苯甲醛(ArCHO)实验点','苯甲醛(ArCHO)','苯甲酸(ArCOOH)实验点','苯甲酸(ArCOOH)','过氧化物(ArCH2OOH)实验点','过氧化物(ArCH2OOH)','苯甲酸苄酯(ArCOOCH2Ar)实验点','苯甲酸苄酯(ArCOOCH2Ar)'])  # 添加图例
         plt.savefig('static/'+str(i) + '.png')
     # draw_final()
 
