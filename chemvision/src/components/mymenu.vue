@@ -16,6 +16,13 @@
         <el-menu-item-group>
           <el-menu-item index="upload_data">甲苯仿生催化氧化动力学与反应器模拟仿真
           </el-menu-item>
+          <el-menu-item index="background">实验背景</el-menu-item>
+          <el-menu-item index="goal">实验目的</el-menu-item>
+          <el-menu-item index="reagent">实验试剂</el-menu-item>
+          <el-menu-item index="process">操作过程</el-menu-item>
+          <el-menu-item index="mechanism">反应机理</el-menu-item>
+          <el-menu-item index="report">实验报告</el-menu-item>
+
         </el-menu-item-group>
 
       </el-submenu>
