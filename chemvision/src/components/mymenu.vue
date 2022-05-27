@@ -21,7 +21,12 @@
           <el-menu-item index="reagent">实验试剂</el-menu-item>
           <el-menu-item index="process">操作过程</el-menu-item>
           <el-menu-item index="mechanism">反应机理</el-menu-item>
-          <el-menu-item index="report">实验报告</el-menu-item>
+          <el-menu-item>
+          <el-link :href="tableData.url" target="_blank">实验报告链接</el-link>
+          </el-menu-item>
+
+<!--          <el-link :href=http://127.0.0.1:8000/media/lab.pdf target="_blank">报告链接</el-link>-->
+<!--          <el-menu-item index="report">实验报告</el-menu-item>-->
 
         </el-menu-item-group>
 
@@ -43,7 +48,8 @@ export default {
   data() {
     return {
       isCollapse: true,
-      path:this.$route.path
+      path:this.$route.path,
+      tableData:{"url":"http://127.0.0.1:8000/media/lab.pdf"}
     };
   },
   methods: {
@@ -52,7 +58,8 @@ export default {
     },
     handleClose(key, keyPath) {
       console.log(key, keyPath);
-    }
+    },
+
   }
 }
 </script>

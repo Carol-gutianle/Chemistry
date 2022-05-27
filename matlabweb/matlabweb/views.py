@@ -15,6 +15,8 @@ titles=["图一反应条件：448K 1.0MPa","图二反应条件：453K 1.0MPa","�
 cdata= []
 # k0 e0  1*16
 k0_e0=[]
+res_k=[]
+res_e=[]
 # matlab.double([3.9410e+09, 7.2655E+13, 3.0537e+09,   2.0515e+10, 4.3276e+05, 5.8511e+05, 5.5751e+06, 96335,    93745,    89522,    97733,    48514,    73059,    62138, 4500e+06, 320790])
 # T 1*7
 T =[]
@@ -31,13 +33,14 @@ def draw_final():
 def cdata_post(request):
     data = {}
     file = request.FILES.get('file')  # 获取文件对象，包括文件名文件大小和文件内容
-    # print(file.name)  # 文件名
+    # print(file)  # 文件名
     # print(file.size)  # 文件大小
     # 将文件写入本地
-    f = open("data.json", 'wb')
-    for line in file.chunks():  # 由于文件不是一次性上传的，因此一块一块的写入
-        f.write(line)
-    f.close()
+    if(file!=None):
+        f = open("data.json", 'wb')
+        for line in file.chunks():  # 由于文件不是一次性上传的，因此一块一块的写入
+            f.write(line)
+        f.close()
 
     data['code'] = 200
     sample = json.dumps(data)
@@ -46,8 +49,16 @@ def cdata_post(request):
 
 '''get'''
 @csrf_exempt
+def return_():
+    data = {}
+    data['code'] = 200
+    sample = json.dumps(data)
+    return HttpResponse(sample, content_type="application/json")  # 返回给前端
+
+@csrf_exempt
 def return_datas(request):
     request.encoding = 'utf-8'
+    return_()
     data1 = []
     data2 = []
     data = {}
@@ -56,7 +67,9 @@ def return_datas(request):
     # 以可读方式打开文件
     fp = open("data.json", 'r')
     json_data = json.load(fp)
-    global cdata, k0_e0, T
+    global cdata, k0_e0, T,res_k,res_e
+    res_k = []
+    res_e = []
     cdata = json_data["cdata"]
     k0_e0 = json_data["k0_e0"]
     T = json_data["T"]
@@ -85,6 +98,7 @@ def return_datas(request):
     # '''画图'''
     cwd = os.getcwd()
     for i in range(0, 7):
+
         expdata = cdata[i]
         c = res_c[i]
         time = expdata[:, 0]  # 实验值--时间
@@ -129,3 +143,42 @@ def return_datas(request):
     data['KE']=data2
     sample = json.dumps(data)  # json.dumps()把一个Python对象编，码转换成Json字符串。
     return HttpResponse(sample, content_type="application/json")  # 返回给前端
+
+@csrf_exempt
+def show_datas(request):
+    request.encoding = 'utf-8'
+    data1 = []
+    data2 = []
+    data = {}
+
+    global res_k, res_e
+    if len(res_k) and len(res_e)>0:
+        for i in range(0, 7):
+            data4 = {}
+            # data4["title"]='图'+str(i+1)
+            data4["url"] = str(i) + '.png'
+            data1.append(data4)
+        data["picture"] = data1
+
+        # res_e=[95763.31699725651, 88422.77344932838, 87383.9443650537, 94015.96441164656, 46086.35089734953, 33951.366251236715, 42824.11059165022]
+        # res_k=[3292256062.3319407, 17026448145390.867, 1623957393.1163824, 7516179236.089911, 236649.77956834293, 21.031099109026435, 45450.37377298935]
+        inti = 1
+        for i, j in zip(res_k, res_e):
+            data3 = {}
+            data3['kValue'] = i  # (1*7)
+            data3['eValue'] = j  # (1*7)
+            data2.append(data3)
+            inti += 1
+        data['KE'] = data2
+        data['code'] = 200
+        sample = json.dumps(data)  # json.dumps()把一个Python对象编，码转换成Json字符串。
+
+        return HttpResponse(sample, content_type="application/json")  # 返回给前端
+    else :
+        data['code'] = 404
+        sample = json.dumps(data)
+        return HttpResponse(sample, content_type="application/json")  # 返回给前端
+
+
+
+
