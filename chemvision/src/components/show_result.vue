@@ -5,7 +5,8 @@
     <div style="text-align: center;width: 100%; padding-left: 100px;margin: auto">
 
       <el-card style="width: 62%; margin: 10px">
-      <el-button type="primary" @click="run()">开始运行</el-button>
+      <el-button type="primary" @click="run()">显示结果</el-button>
+        <el-button type="primary" @click="run2()">运行结果（运行需要10-15分钟，请耐心等待）</el-button>
       </el-card>
 
       <el-card style="width: 62%; margin: 10px">
@@ -119,14 +120,30 @@ export default {
       this.list= [];
       this.tableData= [];
       request.post("api/return_datas/", this.fd).then(res=>{
-           this.list = res.data.picture;
-           for(var i=0;i<7;i++)
-           {
-                this.list[i]["url"] = "http://127.0.0.1:8000/media/"+this.list[i]["url"];
-             // this.list[i]["url"] = "http://127.0.0.1:8000/media/0.png";
-           }
+        if(res.data.code===200) {
+          this.list = res.data.picture;
+          for(var i=0;i<7;i++)
+          {
+            this.list[i]["url"] = "http://127.0.0.1:8000/media/"+this.list[i]["url"];
+            // this.list[i]["url"] = "http://127.0.0.1:8000/media/0.png";
+          }
 
-           this.tableData = res.data.KE;
+          this.tableData = res.data.KE;
+        }
+        else {
+          this.$message({
+            type: "error",
+            message: "正在运行，请耐心等待！"
+          })
+        }
+
+
+      })
+    },
+    run2() {
+      this.list= [];
+      this.tableData= [];
+      request.post("api/get_datas/", this.fd).then(res=>{
 
       })
     }
