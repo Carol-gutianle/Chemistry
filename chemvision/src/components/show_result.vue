@@ -4,12 +4,13 @@
     </div>
     <div style="text-align: center;width: 100%; padding-left: 100px;margin: auto">
 
-      <el-card style="width: 62%; margin: 10px">
-      <el-button type="primary" @click="run()">显示结果</el-button>
-        <el-button type="primary" @click="run2()">运行结果（运行需要10-15分钟，请耐心等待）</el-button>
+      <el-card style="width: 70%; margin: 10px">
+
+        <el-button type="primary" @click="run2()">开始运行（后台程序运行需要10-15分钟，请耐心等待）</el-button>
+        <el-button type="primary" @click="run()">显示结果</el-button>
       </el-card>
 
-      <el-card style="width: 62%; margin: 10px">
+      <el-card style="width: 70%; margin: 10px">
         <el-carousel
           width="100%"
           height="600px"
@@ -26,7 +27,7 @@
         </div>
       </el-card>
 
-      <el-card style="width: 62%; margin: 10px">
+      <el-card style="width: 70%; margin: 10px">
         <el-col :span="3.5" style="padding-left:0px;">
         <el-table
           :row-style="{height:'74px'}"
@@ -39,7 +40,7 @@
           </el-table-column>
           <el-table-column
             prop="eValue"
-            label="Ea"
+            label="Ea(kJ/mol)"
             width="180">
           </el-table-column>
 
@@ -63,6 +64,43 @@
         </el-col>
 
         </el-card>
+      <el-card style="width: 70%; margin: 10px">
+
+        <el-button @click="handleClick()" type="primary" >各步反应动力学常数对数与绝对温度倒数关系图</el-button>
+        <el-button @click="handleClick2()" type="primary" >反应动力学常数K2对数与温度倒数关系图</el-button>
+        <el-button @click="handleClick3()" type="primary" >图例说明</el-button>
+
+        <el-dialog title="" :visible.sync="dialogFormVisible" width="50%">
+          <div>
+            <el-image
+              style="width: 100%;height: 100%"
+              :src = "require('../assets/l.jpg')"
+              fit = "scale-down"
+            ></el-image>
+          </div>
+        </el-dialog>
+
+        <el-dialog title="" :visible.sync="dialogFormVisible2" width="50%">
+          <div>
+            <el-image
+              style="width: 100%;height: 100%"
+              :src = "require('../assets/r.jpg')"
+              fit = "scale-down"
+            ></el-image>
+          </div>
+        </el-dialog>
+
+        <el-dialog title="" :visible.sync="dialogFormVisible3" width="50%">
+          <div>
+            <el-image
+              style="width: 100%;height: 100%"
+              :src = "require('../assets/lr.png')"
+              fit = "scale-down"
+            ></el-image>
+          </div>
+        </el-dialog>
+
+      </el-card>
 
     </div>
   </div>
@@ -73,17 +111,20 @@ import request from "../util/request";
 export default {
   data() {
     return {
+      dialogFormVisible2:false,
+      dialogFormVisible:false,
+      dialogFormVisible3:false,
       list: [
-      {"title":"图1","url":"http://127.0.0.1:8000/media/0.png"},
-      {"title":"图1","url":"http://127.0.0.1:8000/media/1.png"},
-      {"title":"图1","url":"http://127.0.0.1:8000/media/2.png"},
-      {"title":"图1","url":"http://127.0.0.1:8000/media/3.png"},
-      {"title":"图1","url":"http://127.0.0.1:8000/media/4.png"},
-      {"title":"图1","url":"http://127.0.0.1:8000/media/5.png"},
-      {"title":"图1","url":"http://127.0.0.1:8000/media/6.png"},
+      {"title":"图1","url":"http://server.vaiwan.cn/media/0.png"},
+      {"title":"图1","url":"http://server.vaiwan.cn/media/1.png"},
+      {"title":"图1","url":"http://server.vaiwan.cn/media/2.png"},
+      {"title":"图1","url":"http://server.vaiwan.cn/media/3.png"},
+      {"title":"图1","url":"http://server.vaiwan.cn/media/4.png"},
+      {"title":"图1","url":"http://server.vaiwan.cn/media/5.png"},
+      {"title":"图1","url":"http://server.vaiwan.cn/media/6.png"},
       ],
       list1: [
-        {"title":"图1","url":"http://127.0.0.1:8000/media/0.png"}
+        {"title":"图1","url":"http://server.vaiwan.cn/media/0.png"}
       ],
       tableData: [
       {"kValue":3292256062.3319407,"eValue":95763.31699725651,},
@@ -104,10 +145,26 @@ export default {
         {"ps":require("../assets/img7.png")},
 
 
-      ]
+      ],
+
     }
   },
   methods: {
+    handleClick(){
+
+      this.dialogFormVisible=true
+
+    },
+    handleClick2(){
+
+      this.dialogFormVisible2=true
+
+    },
+    handleClick3(){
+
+      this.dialogFormVisible3=true
+
+    },
     //数字指示器点击事件
     clickChange(index) {
       //参数index为图片索引
@@ -124,8 +181,8 @@ export default {
           this.list = res.data.picture;
           for(var i=0;i<7;i++)
           {
-            this.list[i]["url"] = "http://127.0.0.1:8000/media/"+this.list[i]["url"];
-            // this.list[i]["url"] = "http://127.0.0.1:8000/media/0.png";
+            this.list[i]["url"] = "http://server.vaiwan.cn/media/"+this.list[i]["url"];
+           
           }
 
           this.tableData = res.data.KE;
