@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import layout from '../layout/layout.vue'
 Vue.use(VueRouter)
 export default new VueRouter({
+  mode: 'history',
+  base: '/chemistry/',
   routes:[
     {
       path: '/',
