@@ -74,16 +74,16 @@ export default {
   data() {
     return {
       list: [
-      {"title":"图1","url":"http://127.0.0.1:8000/media/0.png"},
-      {"title":"图1","url":"http://127.0.0.1:8000/media/1.png"},
-      {"title":"图1","url":"http://127.0.0.1:8000/media/2.png"},
-      {"title":"图1","url":"http://127.0.0.1:8000/media/3.png"},
-      {"title":"图1","url":"http://127.0.0.1:8000/media/4.png"},
-      {"title":"图1","url":"http://127.0.0.1:8000/media/5.png"},
-      {"title":"图1","url":"http://127.0.0.1:8000/media/6.png"},
+      {"title":"图1","url":"http://server.vaiwan.cn/media/0.png"},
+      {"title":"图1","url":"http://server.vaiwan.cn/media/1.png"},
+      {"title":"图1","url":"http://server.vaiwan.cn/media/2.png"},
+      {"title":"图1","url":"http://server.vaiwan.cn/media/3.png"},
+      {"title":"图1","url":"http://server.vaiwan.cn/media/4.png"},
+      {"title":"图1","url":"http://server.vaiwan.cn/media/5.png"},
+      {"title":"图1","url":"http://server.vaiwan.cn/media/6.png"},
       ],
       list1: [
-        {"title":"图1","url":"http://127.0.0.1:8000/media/0.png"}
+        {"title":"图1","url":"http://server.vaiwan.cn/media/0.png"}
       ],
       tableData: [
       {"kValue":3292256062.3319407,"eValue":95763.31699725651,},
@@ -124,7 +124,7 @@ export default {
           this.list = res.data.picture;
           for(var i=0;i<7;i++)
           {
-            this.list[i]["url"] = "http://127.0.0.1:8000/media/"+this.list[i]["url"];
+            this.list[i]["url"] = "http://server.vaiwan.cn/media/"+this.list[i]["url"];
             // this.list[i]["url"] = "http://127.0.0.1:8000/media/0.png";
           }
 

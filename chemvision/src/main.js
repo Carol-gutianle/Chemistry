@@ -9,7 +9,7 @@ import locale from 'element-ui/lib/locale/lang/en'
 import axios from "axios";
 Vue.config.productionTip = false
 Vue.use(ElementUI, { locale,size:'small' })
-axios.defaults.baseURL = "http://localhost:8080"
+axios.defaults.baseURL = "http://server.vaiwan.cn"
 /* eslint-disable no-new */
 new Vue({
   router,
