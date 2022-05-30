@@ -1,43 +1,45 @@
 <template>
-  <div>
-    <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
-      <el-radio-button :label="false">展开</el-radio-button>
-      <el-radio-button :label="true">收起</el-radio-button>
-    </el-radio-group>
-    <el-menu   router default-active="path" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+    <div >
 
-      <el-submenu index="1">
-
-        <template slot="title">
-          <i class="el-icon-edit"></i>
-          <span slot="title">管理</span>
-        </template>
-
-        <el-menu-item-group>
-          <el-menu-item index="upload_data">甲苯仿生催化氧化动力学与反应器模拟仿真
+    <el-menu  router default-active="path" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+          <el-menu-item index="upload_data">
+            <i class="el-icon-setting"></i>
+            甲苯仿生催化氧化动力学模拟
           </el-menu-item>
-          <el-menu-item index="background">实验背景</el-menu-item>
-          <el-menu-item index="goal">实验目的</el-menu-item>
-          <el-menu-item index="reagent">实验试剂</el-menu-item>
-          <el-menu-item index="process">操作过程</el-menu-item>
-          <el-menu-item index="mechanism">反应机理</el-menu-item>
+
+          <el-menu-item index="background">
+            <i class="el-icon-document"></i>
+            实验背景
+          </el-menu-item>
+          <el-menu-item index="goal">
+            <i class="el-icon-document"></i>
+            实验目的
+          </el-menu-item>
+          <el-menu-item index="reagent">
+            <i class="el-icon-document"></i>
+            实验试剂
+          </el-menu-item>
+          <el-menu-item index="process">
+            <i class="el-icon-document"></i>
+            操作过程
+          </el-menu-item>
+          <el-menu-item index="mechanism">
+            <i class="el-icon-document"></i>
+            反应机理
+          </el-menu-item>
           <el-menu-item>
-          <el-link :href="tableData.url" target="_blank">实验报告链接</el-link>
+            <i class="el-icon-document"></i>
+            <el-link :href="tableData.url" target="_blank">实验报告链接</el-link>
           </el-menu-item>
 
-<!--          <el-link :href=http://127.0.0.1:8000/media/lab.pdf target="_blank">报告链接</el-link>-->
-<!--          <el-menu-item index="report">实验报告</el-menu-item>-->
-
-        </el-menu-item-group>
-
-      </el-submenu>
     </el-menu>
-  </div>
+
+</div>
 </template>
 
 <style>
 .el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
+  width: 250px;
   min-height: 100vh;
 }
 </style>
@@ -47,9 +49,9 @@ export default {
   name: "mymenu",
   data() {
     return {
-      isCollapse: true,
+      isCollapse: false,
       path:this.$route.path,
-      tableData:{"url":"http://127.0.0.1:8000/media/lab.pdf"}
+      tableData:{"url":"http://server.vaiwan.cn/media/lab.pdf"}
     };
   },
   methods: {
@@ -65,5 +67,6 @@ export default {
 </script>
 
 <style scoped>
+
 
 </style>
